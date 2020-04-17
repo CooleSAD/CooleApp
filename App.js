@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import {I18nManager} from 'react-native'
 
 import LoginScreen from './src/screens/LoginScreen'
+import SignUpScreen from'./src/screens/SignUpScreen'
 
 export default class App extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ export default class App extends Component {
 
     return (
       <Container>
-        <LoginScreen/>
+        <SignUpScreen/>
       </Container>
     );
   }

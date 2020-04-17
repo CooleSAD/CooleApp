@@ -19,8 +19,8 @@ export default class LoginScreen extends Component {
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
           <Container style={styles.titleContainer}>
-            <Text style={{ fontFamily: "IRANSans_bold", fontSize: 28 }}>
-              {"خوش آمدید!"}
+            <Text style={{ fontFamily: "IRANSans_bold", fontSize: 28, paddingTop: 90}}>
+              {"خوش آمدین!"}
             </Text>
           </Container>
           <Container style={styles.fieldsContainer}>
@@ -31,6 +31,8 @@ export default class LoginScreen extends Component {
           </Container>
           <Container style={styles.buttonContainer}>
             <Button textSize={28} title="ورود" />
+            <Text>{"ورود به حساب!"}</Text>
+            
           </Container>
         </Content>
         <Footer style={styles.footer}>
