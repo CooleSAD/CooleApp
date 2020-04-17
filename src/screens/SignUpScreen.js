@@ -26,15 +26,18 @@ export default class LoginScreen extends Component {
           <Container style={styles.fieldsContainer}>
             <Form>
               <TextInput label="نام و نام خانوادگی" />
-              <TextInput label="گذرواژه" />
+              <TextInput secureTextEntry={true} label="گذرواژه" />
               <TextInput label="تکرار گذرواژه" />
               <TextInput label="ایمیل" />
             </Form>
           </Container>
           <Container style={styles.buttonContainer}>
-            <Button textSize={28} title="ورود" />
+            <Button textSize={28} title="ثبت نام" />
           </Container>
         </Content>
+        <Footer style={styles.footer}>
+          <Button title=" ورود" />
+        </Footer>
       </Container>
     );
   }
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   fieldsContainer: {
-    flex: 1,
+    flex: 2,
     justifyContent: "center",
   },
   buttonContainer: {
