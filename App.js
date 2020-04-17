@@ -21,6 +21,11 @@ export default class App extends Component {
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
       ...Ionicons.font,
     });
+    await Font.loadAsync({
+      IRANSans : require('./assets/fonts/IRANSansMobile.ttf'),
+      IRANSans_bold : require('./assets/fonts/IRANSansMobile_Bold.ttf'),
+      IRANSans_medium : require('./assets/fonts/IRANSansMobile_Medium.ttf'),
+    })
     this.setState({ isReady: true });
   }
 

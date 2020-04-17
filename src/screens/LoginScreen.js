@@ -1,44 +1,70 @@
-import React, {Component} from 'react';
-import { Container, Header, Content, Form, Item, Button, Text, H1 } from 'native-base';
-import { StyleSheet } from 'react-native';
+import React, { Component } from "react";
+import {
+  Container,
+  Header,
+  Content,
+  Form,
+  Item,
+  Text,
+  Footer,
+} from "native-base";
+import { StyleSheet, ImageBackground } from "react-native";
 
-import TextInput from '../components/login/TextInput';
-
+import TextInput from "../components/login/TextInput";
+import Button from "../components/login/Button";
 
 export default class LoginScreen extends Component {
-
-    render() {
-        return(
-            <Container style={styles.container}>
-                <Header/>
-                <Content contentContainerStyle={styles.content}>
-                    <H1>Create Account</H1>
-                    <Form>
-                        <Item inlineLabel>
-                            <TextInput label="email"/>
-                        </Item>
-                        <Item>
-                            <TextInput label="password"/>
-                        </Item>
-                        <Button block light>
-                            <Text>Login</Text>
-                        </Button>
-                    </Form>
-                </Content>
-            </Container>
-        )
-    }
+  render() {
+    return (
+      <Container style={styles.container}>
+        <Content contentContainerStyle={styles.content}>
+          <Container style={styles.titleContainer}>
+            <Text style={{ fontFamily: "IRANSans_bold", fontSize: 28 }}>
+              {"خوش آمدید!"}
+            </Text>
+          </Container>
+          <Container style={styles.fieldsContainer}>
+            <Form>
+              <TextInput label="ایمیل" />
+              <TextInput label="گذرواژه" />
+            </Form>
+          </Container>
+          <Container style={styles.buttonContainer}>
+            <Button textSize={28} title="ورود" />
+          </Container>
+        </Content>
+        <Footer style={styles.footer}>
+          <Button title="ثبت نام" />
+        </Footer>
+      </Container>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container : {
-        backgroundColor : '#ffffff',
-        width : '100%'
-    },
-    content : {
-        flex : 1,
-        justifyContent : 'center',
-        width : '80%',
-        alignSelf : 'center' 
-    }
-})
+  container: {
+    backgroundColor: "#ffffff",
+    width: "100%",
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    width: "80%",
+    alignSelf: "center",
+  },
+  titleContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  fieldsContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    flex: 1,
+  },
+  footer: {
+    alignItems: "center",
+    backgroundColor: "#ffffff",
+  },
+});

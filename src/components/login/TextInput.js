@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Label, Input } from 'native-base';
+import { Label, Input, Item } from 'native-base';
 
 export default class TextInput extends Component {
 
@@ -7,10 +7,10 @@ export default class TextInput extends Component {
         const {label} = this.props
 
         return(
-            <>
-                <Label>{label}</Label>
-                <Input/>
-            </>
+            <Item floatingLabel>
+                <Label style={{fontFamily : 'IRANSans', fontSize: 14}}>{label}</Label>
+                <Input style={{fontFamily : 'IRANSans', marginTop : 5}}/>
+            </Item>
         )
     }
 }
