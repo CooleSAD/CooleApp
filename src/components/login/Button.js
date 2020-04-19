@@ -4,15 +4,13 @@ import { TouchableOpacity } from "react-native";
 
 export default class CooleButton extends Component {
   render() {
-    const { title, textSize, style } = this.props;
+    const { title, textSize, style, onPress } = this.props;
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Text
           style={{
             fontFamily: "IRANSans_bold",
             fontSize: textSize ? textSize : 16,
-            
-            
           }}
         >
           {title}

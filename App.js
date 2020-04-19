@@ -5,8 +5,7 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import {I18nManager} from 'react-native'
 
-import LoginScreen from './src/screens/LoginScreen'
-import SignUpScreen from'./src/screens/SignUpScreen'
+import AppNavigator from './AppNavigator';
 
 export default class App extends Component {
   constructor(props) {
@@ -23,7 +22,7 @@ export default class App extends Component {
       ...Ionicons.font,
     });
     await Font.loadAsync({
-      IRANSanss : require('./assets/fonts/IRANSansMobile.ttf'),
+      IRANSans : require('./assets/fonts/IRANSansMobile.ttf'),
       IRANSans_bold : require('./assets/fonts/IRANSansMobile_Bold.ttf'),
       IRANSans_medium : require('./assets/fonts/IRANSansMobile_Medium.ttf'),
     })
@@ -37,7 +36,7 @@ export default class App extends Component {
 
     return (
       <Container>
-        <SignUpScreen/>
+        <AppNavigator/>
       </Container>
     );
   }
