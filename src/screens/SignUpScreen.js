@@ -7,19 +7,56 @@ import {
   Item,
   Text,
   Footer,
+  View
 } from "native-base";
 import { StyleSheet, Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import validator from 'validator';
+import axios from 'axios';
 
 import TextInput from "../components/login/TextInput";
 import Button from "../components/login/Button";
 
 export default class SignupScreen extends Component {
 
+
+  constructor() {
+    super()
+    this.state = {
+      firstName : "",
+      lastName : "",
+      password : "",
+      confirmPassword : "",
+      email : "" 
+    }
+  }
+
+
   goToLoginScreen = () => {
     const {navigation} = this.props
     navigation.navigate('Login')
   }
+
+
+  onChangeField = (value, field) => {
+    this.setState({[field] : value})
+  }
+
+  checkEmail = () => {
+    const {email} = this.state
+    return validator.isEmail(email) || email.length == 0
+  }
+
+  //todo check password, check confirm password error
+
+
+  //todo
+  // isValid = () => {
+
+  // }
+
+
+  //
 
   render() {
     return (
@@ -33,18 +70,21 @@ export default class SignupScreen extends Component {
             </Container>
             <Container style={styles.fieldsContainer}>
               <Form>
-                <TextInput label="نام و نام خانوادگی" />
-                <TextInput password label="گذرواژه" />
-                <TextInput password label="تکرار گذرواژه" />
-                <TextInput label="ایمیل" />
+                <View style={styles.nameContainer}>
+                  <TextInput style={styles.nameField} type='firstName' onChangeText={this.onChangeField} label="نام" />  
+                  <TextInput style={styles.nameField} type='lastName' onChangeText={this.onChangeField} label="نام خانوادگی" />
+                </View>
+                <TextInput type='password' onChangeText={this.onChangeField} password label="گذرواژه" />
+                <TextInput type='confirmPassword' onChangeText={this.onChangeField} password label="تکرار گذرواژه" />
+                <TextInput error={!this.checkEmail()} type='email' onChangeText={this.onChangeField} label="ایمیل" />
               </Form>
             </Container>
             <Container style={styles.buttonContainer}>
-              <Button textSize={28} title="ثبت نام" />
+              <Button onPress={this.signup} disabled={false} textSize={28} title="ثبت نام" />
             </Container>
           </Content>
           <Footer style={styles.footer}>
-            <Button onPress={this.goToLoginScreen} title=" ورود" />
+            <Button /*onPress={this.goToLoginScreen}*/ title=" ورود" />
           </Footer>
         </Container>
       </KeyboardAwareScrollView>
@@ -69,6 +109,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "80%",
     alignSelf: "center",
+  },
+  nameContainer : {
+    flexDirection : 'row-reverse',
+    justifyContent : 'space-between'
+  }, 
+  nameField : {
+    width : '45%'
   },
   titleContainer: {
     flex: 1,

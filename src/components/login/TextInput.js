@@ -4,12 +4,12 @@ import { Label, Input, Item } from 'native-base';
 export default class TextInput extends Component {
 
     render() {
-        const {label, password} = this.props
+        const {label, password, onChangeText, type, error, style} = this.props
 
         return(
-            <Item floatingLabel>
-                <Label style={{fontFamily : 'IRANSans', fontSize: 14}}>{label}</Label>
-                <Input secureTextEntry={(password) ? true : false} style={{fontFamily : 'IRANSans', marginTop : 5}}/>
+            <Item style={style} floatingLabel>
+                <Label style={{fontFamily : 'IRANSans', fontSize: 14, color : error ? 'red' : 'gray'}}>{label}</Label>
+                <Input onChangeText={(value) => onChangeText(value, type)} secureTextEntry={(password) ? true : false} style={{fontFamily : 'IRANSans', marginTop : 5}}/>
             </Item>
         )
     }
