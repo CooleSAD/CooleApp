@@ -9,7 +9,7 @@ import {
   Footer,
   View
 } from "native-base";
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, ImageBackground } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import validator from 'validator';
 import axios from 'axios';
@@ -17,6 +17,9 @@ import axios from 'axios';
 import TextInput from "../components/login/TextInput";
 import Button from "../components/login/Button";
 import { isAvailable } from "expo/build/AR";
+
+
+//todo: blur footer
 
 export default class SignupScreen extends Component {
 
@@ -31,6 +34,7 @@ export default class SignupScreen extends Component {
       email : "" 
     }
   }
+
 
 
   goToLoginScreen = () => {
@@ -71,15 +75,17 @@ export default class SignupScreen extends Component {
   }
 
 
-  //
 
+  
   render() {
+    const resizeMode = 'center';
     return (
       <KeyboardAwareScrollView style={styles.keyboardaware} keyboardShouldPersistTaps='handled'>
         <Container style={styles.container}>
+        <ImageBackground source={require('../../assets/img/backgrounds/signup.png')} style={styles.backgroundImageStyle}>
           <Content contentContainerStyle={styles.content}>
             <Container style={styles.titleContainer}>
-              <Text style={{ fontFamily: "IRANSans_bold", fontSize: 28 }}>
+              <Text style={{ fontFamily: "IRANSans_bold", fontSize: 28, color: '#d9d9d9'}}>
                 {"ثبت نام کنید!"}
               </Text>
             </Container>
@@ -101,8 +107,12 @@ export default class SignupScreen extends Component {
           <Footer style={styles.footer}>
             <Button /*onPress={this.goToLoginScreen}*/ title=" ورود" />
           </Footer>
+        </ImageBackground>
         </Container>
       </KeyboardAwareScrollView>
+
+
+  
     );
   }
 }
@@ -111,10 +121,10 @@ const styles = StyleSheet.create({
   keyboardaware : {
     flex : 1,
     height : Dimensions.get('window').height,
-    backgroundColor : '#ffffff'
+    backgroundColor : 'transparent'
   },
   container: {
-    backgroundColor: "#ffffff",
+    backgroundColor: 'transparent',
     width: "100%",
     flex : 1,
     height : Dimensions.get('window').height,
@@ -135,18 +145,31 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: 'transparent',
     // backgroundColor : 'red'
   },
   fieldsContainer: {
     flex: 2,
+    backgroundColor: 'transparent',
     // backgroundColor : 'green'
   },
   buttonContainer: {
     flex: 1,
+    backgroundColor: 'transparent',
     // backgroundColor : 'yellow'
   },
   footer: {
     alignItems: "center",
-    backgroundColor: "#ffffff",
+    backgroundColor: 'transparent',
   },
+
+  backgroundImageStyle: {
+    backgroundColor: 'transparent',
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+  }
 });
+

@@ -24,8 +24,12 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
+
+
+
       <KeyboardAwareScrollView style={styles.keyboardaware} keyboardShouldPersistTaps='handled'>
         <Container style={styles.container}>
+        <ImageBackground source={require('../../assets/img/backgrounds/login.png')} style={styles.backgroundImageStyle}>
           <Content contentContainerStyle={styles.content}>
             <Container style={styles.titleContainer}>
               <Text
@@ -33,6 +37,7 @@ export default class LoginScreen extends Component {
                   fontFamily: "IRANSans_bold",
                   fontSize: 28,
                   paddingTop: 90,
+                  color: '#d9d9d9'
                 }}
               >
                 {"خوش آمدید!"}
@@ -51,6 +56,7 @@ export default class LoginScreen extends Component {
           <Footer style={styles.footer}>
             <Button onPress={this.goToSignupScreen} title="ثبت نام" />
           </Footer>
+          </ImageBackground>
         </Container>
       </KeyboardAwareScrollView>
     );
@@ -78,16 +84,28 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: 'transparent',
   },
   fieldsContainer: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: 'transparent',
   },
   buttonContainer: {
     flex: 1,
+    backgroundColor: 'transparent',
   },
   footer: {
     alignItems: "center",
     backgroundColor: "#ffffff",
+    backgroundColor: 'transparent',
   },
+  backgroundImageStyle: {
+    backgroundColor: 'transparent',
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+  }
 });

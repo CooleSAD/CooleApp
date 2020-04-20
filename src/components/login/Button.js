@@ -11,7 +11,7 @@ export default class CooleButton extends Component {
           style={{
             fontFamily: "IRANSans_bold",
             fontSize: textSize ? textSize : 16,
-            color : disabled ? 'gray' : 'black'
+            color : disabled ? '#969595' : '#d9d9d9'
           }}
         >
           {title}
