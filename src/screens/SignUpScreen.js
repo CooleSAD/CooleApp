@@ -16,6 +16,7 @@ import axios from 'axios';
 
 import TextInput from "../components/login/TextInput";
 import Button from "../components/login/Button";
+import { isAvailable } from "expo/build/AR";
 
 export default class SignupScreen extends Component {
 
@@ -42,18 +43,32 @@ export default class SignupScreen extends Component {
     this.setState({[field] : value})
   }
 
-  checkEmail = () => {
+  isEmailValid = () => {
     const {email} = this.state
     return validator.isEmail(email) || email.length == 0
   }
 
-  //todo check password, check confirm password error
+  isPasswordValid = () => {
+  const {password} = this.state
+    return (validator.matches(password, "^(?=.*[a-zA-Z])(?=.*[0-9])") &&
+            validator.isAscii(password) &&
+            password.length >= 6) 
+            
+            || password.length === 0  //must contain numbers and letters, length > 6
+  }
+ isConfirmPasswordValid = () => {
+   const {password} = this.state
+   const {confirmPassword} = this.state
 
+  return validator.equals(password, confirmPassword) || confirmPassword.length === 0
+  }
+  isValid = () => {
+    const{password} = this.state
+    const{confirmPassword} = this.state
+    const{email} = this.state
 
-  //todo
-  // isValid = () => {
-
-  // }
+    return this.isPasswordValid() && this.isConfirmPasswordValid() && this.isEmailValid() && password.length > 0 && email.length > 0
+  }
 
 
   //
@@ -74,13 +89,13 @@ export default class SignupScreen extends Component {
                   <TextInput style={styles.nameField} type='firstName' onChangeText={this.onChangeField} label="نام" />  
                   <TextInput style={styles.nameField} type='lastName' onChangeText={this.onChangeField} label="نام خانوادگی" />
                 </View>
-                <TextInput type='password' onChangeText={this.onChangeField} password label="گذرواژه" />
-                <TextInput type='confirmPassword' onChangeText={this.onChangeField} password label="تکرار گذرواژه" />
-                <TextInput error={!this.checkEmail()} type='email' onChangeText={this.onChangeField} label="ایمیل" />
+                <TextInput error={!this.isPasswordValid()} type='password' onChangeText={this.onChangeField} password label="گذرواژه" />
+                <TextInput error={!this.isConfirmPasswordValid()} type='confirmPassword' onChangeText={this.onChangeField} password label="تکرار گذرواژه" />
+                <TextInput error={!this.isEmailValid()} type='email' onChangeText={this.onChangeField} label="ایمیل" />
               </Form>
             </Container>
             <Container style={styles.buttonContainer}>
-              <Button onPress={this.signup} disabled={false} textSize={28} title="ثبت نام" />
+              <Button onPress={this.signup} disabled={!this.isValid()} textSize={28} title="ثبت نام" />
             </Container>
           </Content>
           <Footer style={styles.footer}>
