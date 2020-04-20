@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { AppLoading } from 'expo';
-import { Container, Text, Header } from 'native-base';
+import { Container } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import {I18nManager} from 'react-native'
 
 import AppNavigator from './AppNavigator';
 
