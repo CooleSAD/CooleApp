@@ -1144,6 +1144,14 @@
     react-is "^16.13.0"
     use-subscription "^1.4.0"
 
+"@react-navigation/drawer@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-5.5.1.tgz#f18da67b8528466d4aafd4e1f92b8b8e06c6f26d"
+  integrity sha512-LYgaS7bzyg6vphDLChQlUcyq3UmHl9OJlZa6HFogiZzNVW5pqNbJC5qUlL8Gw8pcH1FpJTUGW6/w4lKOxIGY5w==
+  dependencies:
+    color "^3.1.2"
+    react-native-iphone-x-helper "^1.2.1"
+
 "@react-navigation/native@^5.1.6":
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-5.1.6.tgz#932ff1b5b8b9f051d8e5cd3b016d05badaa01898"
@@ -4978,6 +4986,11 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
+
+persianjs@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/persianjs/-/persianjs-0.4.0.tgz#52c53a111926f8426763ac937c5063756a7e74f2"
+  integrity sha512-mRxvgI3sqPJf+/h1fZuj86uCg0nHR3aVsFsx+Nror+ZeUFTIbgDjVa9zjDJETMUwrgSwo8D1l8FdLzYEayKH1A==
 
 pify@^2.0.0:
   version "2.3.0"
