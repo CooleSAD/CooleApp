@@ -24,7 +24,8 @@ const MainNavigator = () => {
   return (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen
-        options={{ title: "کوله" }}
+        options={{ 
+          title: "کوله"}}
         name="Home"
         component={HomeScreen}
       />
