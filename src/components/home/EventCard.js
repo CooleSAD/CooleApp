@@ -2,6 +2,7 @@ import React from "react";
 import { Image, StyleSheet } from "react-native";
 import { Card, CardItem, Left, Right, Body, Text, Content } from "native-base";
 import FastImage from 'react-native-fast-image'
+
 function GenderIcon(gender) {
   if (gender === 'M'){
       return <Image
@@ -19,13 +20,14 @@ function GenderIcon(gender) {
 
 const EventCard = ({ title, date, gender, length, image_url}) => {
   return (
-    <Content style={{marginVertical : 10 , width : '100%', alignSelf:'center', backgroundColor: '#438C23AB'}}>
-      <Card style={{backgroundColor:'transparent'}} >
-        <CardItem cardBody style={{backgroundColor:'transparent'}}>
+    <Content style={{marginVertical : 8 , width : '99%', alignSelf:'center'}}>
+      <Card style={{backgroundColor:'transparent', borderRadius: 30 }} >
+        <CardItem bordered cardBody style={{backgroundColor:'transparent', borderTopLeftRadius: 25, borderTopRightRadius: 25}}>
           <Image
             // source={{uri: image_url}}
             source = {require("../../../assets/img/samples/KalleGhandi.jpg")}
-            style={{ height: 200, width: null, flex: 1, backgroundColor: 'transparent' }} //replace bg color with image
+            style={{ height: 200, width: null, flex: 1
+            , borderTopLeftRadius: 25, borderTopRightRadius: 25}} //replace bg color with image
           />
 
           {/* <FastImage
@@ -34,7 +36,7 @@ const EventCard = ({ title, date, gender, length, image_url}) => {
           />  */}
         </CardItem> 
 
-        <CardItem style={{backgroundColor: 'transparent'}}> 
+        <CardItem bordered style={{backgroundColor: 'transparent', borderBottomLeftRadius: 25, borderBottomRightRadius: 25}}> 
 
           <Left style={{flexDirection: 'row', flex: 1}}>
             {GenderIcon(gender)}
@@ -42,8 +44,8 @@ const EventCard = ({ title, date, gender, length, image_url}) => {
           </Left>
 
           <Right style = {{flex: 1, paddingRight: 5}}>
-            <Text style={{ fontFamily: "IRANSans_bold", fontSize : 16 }}>{title}</Text>
-            <Text style={{fontFamily: "IRANSans_medium", fontSize : 14}}>{length + ' ' + 'شب'}</Text>
+            <Text style={{fontFamily: "IRANSans_bold", fontSize : 16 }}>{title}</Text>
+            <Text note style={{fontFamily: "IRANSans_medium", color: '#020202FF'}}>{length + ' ' + 'شب'}</Text>
           </Right>
 
         </CardItem>
