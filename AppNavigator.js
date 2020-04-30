@@ -25,7 +25,8 @@ const MainNavigator = () => {
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen
         options={{ 
-          title: "کوله"}}
+          title: "کوله",
+        }}
         name="Home"
         component={HomeScreen}
       />
@@ -34,7 +35,7 @@ const MainNavigator = () => {
 };
 
 const AppNavigator = () => {
-  let isAuthenticated = true;
+  let isAuthenticated = false;
   return (
     <NavigationContainer>
       <Stack.Navigator>

@@ -9,13 +9,9 @@ export default class HomeScreen extends Component {
             <Container>
                 <ImageBackground
                     source={require("../../assets/img/backgrounds/home.png")}
-                    style={styles.backgroundImageStyle}
-                >
-
+                    style={styles.backgroundImageStyle}>
                     <EventsList/>
-
                 </ImageBackground>
-                
             </Container>
         )
     }

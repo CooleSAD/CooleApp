@@ -15,7 +15,7 @@ const EventsList = (props) => {
             gender : 'F',
             date : PersianJS('26').englishNumber().toString() + ' ' +  'فروردین',
             length: PersianJS('3').englishNumber().toString(),
-            image_url: "../../../assets/img/samples/ZardLimeh.jpg"
+            image_url: require("../../../assets/img/samples/ZardLimeh.jpg")
         },
         {
             id : '2',
@@ -23,7 +23,7 @@ const EventsList = (props) => {
             gender : 'M',
             date : PersianJS('4').englishNumber().toString() + ' ' +  'اردیبهشت',
             length: PersianJS('1').englishNumber().toString(),
-            image_url: "../../../assets/img/samples/KalleGhandi.jpg"
+            image_url: require("../../../assets/img/samples/KalleGhandi.jpg")
         },
         {
             id : '3',
@@ -31,7 +31,7 @@ const EventsList = (props) => {
             gender : 'F',
             date : PersianJS('11').englishNumber().toString() + ' ' +  'آبان',
             length: '1',
-            image_url: "../../../assets/img/samples/GoleZard.jpg"
+            image_url: require("../../../assets/img/samples/GoleZard.jpg")
         },
     ]
 
