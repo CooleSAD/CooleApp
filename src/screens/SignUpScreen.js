@@ -6,6 +6,7 @@ import {
   Text,
   Footer,
   View,
+  Toast,
 } from "native-base";
 import { StyleSheet, Dimensions, ImageBackground } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -13,6 +14,7 @@ import validator from "validator";
 
 import TextInput from "../components/login/TextInput";
 import Button from "../components/login/Button";
+import { requestSignup } from "../utils/requests/signup";
 
 //todo: blur footer
 
@@ -25,6 +27,7 @@ export default class SignupScreen extends Component {
       password: "",
       confirmPassword: "",
       email: "",
+      showToast: false,
     };
   }
 
@@ -52,8 +55,7 @@ export default class SignupScreen extends Component {
     ); //must contain numbers and letters, length > 6
   };
   isConfirmPasswordValid = () => {
-    const { password } = this.state;
-    const { confirmPassword } = this.state;
+    const { password, confirmPassword } = this.state;
 
     return (
       validator.equals(password, confirmPassword) ||
@@ -72,6 +74,42 @@ export default class SignupScreen extends Component {
       email.length > 0
     );
   };
+
+  signup = () => {
+    const {
+      email,
+      firstName,
+      lastName,
+      password,
+      confirmPassword,
+    } = this.state;
+    const { navigation } = this.props;
+    let data = {
+      email: email,
+      firstname: firstName,
+      lastname: lastName,
+      password: password,
+      re_password: confirmPassword,
+    };
+    requestSignup(data)
+      .then((res) => {
+        navigation.navigate("Login", { hasSignedUp : true });
+      })
+      .catch((err) => {
+        this.showErrorToast();
+      });
+  };
+
+  showErrorToast = () => {
+    Toast.show({
+      text: "این ایمیل قبلا در سیستم ثبت شده است!",
+      duration: 3000,
+      buttonText: "باشه",
+      type: "danger",
+      textStyle: { fontFamily: "IRANSans", textAlign: "center" },
+      buttonStyle: { display: "none" },
+    });
+  }
 
   render() {
     return (
@@ -136,7 +174,7 @@ export default class SignupScreen extends Component {
               </Container>
               <Container style={styles.buttonContainer}>
                 <Button
-                  // onPress={this.signup}
+                  onPress={this.signup}
                   disabled={!this.isValid()}
                   textSize={28}
                   title="ثبت نام"

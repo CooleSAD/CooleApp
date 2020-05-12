@@ -35,7 +35,7 @@ const MainNavigator = () => {
 };
 
 const AppNavigator = () => {
-  let isAuthenticated = false;
+  let isAuthenticated = false
   return (
     <NavigationContainer>
       <Stack.Navigator>

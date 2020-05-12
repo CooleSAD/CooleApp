@@ -21,7 +21,7 @@ function GenderIcon(gender) {
 const EventCard = ({ title, date, gender, length, image_url}) => {
   return (
     <Content style={{marginVertical : 1 , width : '99%', alignSelf:'center'}}>
-      <Card style={{backgroundColor: '#FFFFFF33', borderRadius: 30 }} >
+      <Card style={{ borderRadius: 25 }} >
         <CardItem bordered cardBody style={styles.ImageCardItem}>
           <Image resizeMode={"cover"} source = {image_url} style={styles.Image}/>
         </CardItem> 

@@ -1,21 +1,69 @@
 import React, { Component } from "react";
-import {
-  Container,
-  Content,
-  Form,
-  Text,
-  Footer,
-} from "native-base";
+import { Container, Content, Form, Text, Footer, Toast } from "native-base";
 import { StyleSheet, ImageBackground, Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import TextInput from "../components/login/TextInput";
 import Button from "../components/login/Button";
+import { requestLogin } from "../utils/requests/login";
 
 export default class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      showToast: false,
+      hasSignedUp : false
+    };
+  }
+
+  // componentDidUpdate() {
+  //   const { route } = this.props;
+  //   const { hasSignedUp } = route.params;
+  //   if (hasSignedUp) {
+  //     Toast.show({
+  //       text: "ثبت نام با موفقیت انجام شد لطفا وارد شوید",
+  //       duration: 3000,
+  //       buttonText: "باشه",
+  //       type: "success",
+  //       textStyle: { fontFamily: "IRANSans", textAlign: "center" },
+  //       buttonStyle: { display: "none" },
+  //     });
+  //   }
+  // }
+
+
+  onChangeField = (value, field) => {
+    this.setState({ [field]: value });
+  };
+
   goToSignupScreen = () => {
     const { navigation } = this.props;
     navigation.navigate("Signup");
+  };
+
+  login = () => {
+    const { email, password } = this.state;
+    let data = { email, password };
+    const { navigation } = this.props;
+
+    requestLogin(data)
+      .then((res) => {
+        console.warn("success");
+      })
+      .catch((err) => this.showErrorToast());
+  };
+
+  showErrorToast = () => {
+    Toast.show({
+      text: "اطلاعات وارد شده معتبر نمی باشد!",
+      duration: 3000,
+      buttonText: "باشه",
+      type: "danger",
+      textStyle: { fontFamily: "IRANSans", textAlign: "center" },
+      buttonStyle: { display: "none" },
+    });
   };
 
   render() {
@@ -44,12 +92,20 @@ export default class LoginScreen extends Component {
               </Container>
               <Container style={styles.fieldsContainer}>
                 <Form>
-                  <TextInput label="ایمیل" />
-                  <TextInput label="گذرواژه" />
+                  <TextInput
+                    onChangeText={this.onChangeField}
+                    type="email"
+                    label="ایمیل"
+                  />
+                  <TextInput
+                    onChangeText={this.onChangeField}
+                    type="password"
+                    label="گذرواژه"
+                  />
                 </Form>
               </Container>
               <Container style={styles.buttonContainer}>
-                <Button textSize={28} title="ورود" />
+                <Button onPress={this.login} textSize={28} title="ورود" />
               </Container>
             </Content>
             <Footer style={styles.footer}>
