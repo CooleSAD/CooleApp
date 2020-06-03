@@ -3,8 +3,6 @@ import { AppLoading } from 'expo';
 import { Container, Root} from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import Constnants from 'expo-constants';
-import EventScreen from './src/screens/EventScreen'
 
 import AppNavigator from './AppNavigator';
 import { Header } from "react-native/Libraries/NewAppScreen";
@@ -34,17 +32,16 @@ export default class App extends Component {
 
   render() {
 
-//    if (!this.state.isReady) {
-//      return <AppLoading />;
-//    }
+    if (!this.state.isReady) {
+      return <AppLoading />;
+    }
 
     return (
-        <EventScreen/>
-//      <Container>
-//        <Root>
-//          <AppNavigator/>
-//        </Root>
-//      </Container>
+      <Container>
+        <Root>
+          <AppNavigator/>
+        </Root>
+      </Container>
     );
   }
 }

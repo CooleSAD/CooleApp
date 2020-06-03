@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import { Container, Text, View, Button, Content } from 'native-base';
-import {StyleSheet, Image, ImageBackground} from "react-native";
+import { Container, Text, View} from 'native-base';
+import {StyleSheet, ImageBackground} from "react-native";
 import SquareThumbnail from '../components/event/SquareThumbnail';
 import {LinearGradient} from 'expo-linear-gradient'
 
