@@ -3,11 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { connect } from "react-redux";
+import { View, Text, Button, Icon } from "native-base";
 
 import LoginScreen from "./src/screens/LoginScreen";
 import SignupScreen from "./src/screens/SignUpScreen";
 import HomeScreen from "./src/screens/HomeScreen";
-import { View } from "native-base";
+import EventScreen from "./src/screens/EventScreen";
 import CustomDrawer from "./src/components/global/customDrawer";
 
 const Stack = createStackNavigator();
@@ -17,6 +18,36 @@ const AuthNavigator = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const HomeNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{
+          title: "کوله",
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Button dark transparent>
+              <Icon name='menu'/>
+            </Button>
+          )
+        }}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Stack.Screen
+        options={{
+          title: "رویداد",
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+        }}
+        name="Event"
+        component={EventScreen}
+      />
     </Stack.Navigator>
   );
 };
@@ -33,8 +64,8 @@ const MainNavigator = () => {
         options={{
           title: "صفحه اصلی",
         }}
-        name="Home"
-        component={HomeScreen}
+        name="HomeNav"
+        component={HomeNavigator}
       />
       <Drawer.Screen
         options={{
@@ -61,11 +92,12 @@ const AppNavigator = ({ token }) => {
       <Stack.Navigator>
         {isAuthenticated ? (
           <Stack.Screen
-            options={{
-              title: "کوله",
-              headerTitleStyle: { fontFamily: "IRANSans_bold" },
-              headerTitleAlign: "center",
-            }}
+            // options={{
+            //   title: "کوله",
+            //   headerTitleStyle: { fontFamily: "IRANSans_bold" },
+            //   headerTitleAlign: "center",
+            // }}
+            options={{ headerShown: false }}
             name="MainNavigator"
             component={MainNavigator}
           />
