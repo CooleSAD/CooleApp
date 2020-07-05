@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { Container, Content, Form, Text, Footer, Toast } from "native-base";
 import { StyleSheet, ImageBackground, Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { connect } from 'react-redux';
+
 
 import TextInput from "../components/login/TextInput";
 import Button from "../components/login/Button";
 import { requestLogin } from "../utils/requests/login";
+import { successLogin } from '../redux/actions/login';
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,11 +49,12 @@ export default class LoginScreen extends Component {
   login = () => {
     const { email, password } = this.state;
     let data = { email, password };
-    const { navigation } = this.props;
+    const { navigation, successLogin } = this.props;
 
     requestLogin(data)
       .then((res) => {
         console.warn("success");
+        successLogin(res.data.auth_token)
       })
       .catch((err) => this.showErrorToast());
   };
@@ -100,6 +104,7 @@ export default class LoginScreen extends Component {
                   <TextInput
                     onChangeText={this.onChangeField}
                     type="password"
+                    password
                     label="گذرواژه"
                   />
                 </Form>
@@ -117,6 +122,12 @@ export default class LoginScreen extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  successLogin : auth_token => dispatch(successLogin(auth_token))
+})
+
+export default connect(null, mapDispatchToProps)(LoginScreen)
 
 const styles = StyleSheet.create({
   keyboardaware: {
