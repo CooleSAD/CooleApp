@@ -1,4 +1,4 @@
-import { initialState } from './index';
+import { initialState } from './initialState';
 import { LOGIN_SUCCESS } from '../actions/login';
 import { LOGOUT_SUCCESS } from '../actions/logout'
 

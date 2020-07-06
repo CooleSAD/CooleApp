@@ -2,37 +2,32 @@ import React from "react";
 import { FlatList } from "react-native";
 import { Container, Text } from "native-base";
 import PersianJS from "persianjs";
+import moment from "jalali-moment";
 
 import EventCard from "./EventCard";
 
-const EventsList = ({navigation}) => {
-  const DATA = [
-    {
-      id: "1",
-      title: "زردلیمه",
-      gender: "F",
-      date: PersianJS("26").englishNumber().toString() + " " + "فروردین",
-      length: PersianJS("3").englishNumber().toString(),
+function getProcessedData(data) {
+  let processedData = [];
+  data.forEach((event) => {
+    processedData.push({
+      id: event.id.toString(),
+      title: event.name,
+      length: PersianJS(event.length).englishNumber().toString(),
       image_url: require("../../../assets/img/samples/ZardLimeh.jpg"),
-    },
-    {
-      id: "2",
-      title: "قله‌ی کله قندی",
-      gender: "M",
-      date: PersianJS("4").englishNumber().toString() + " " + "اردیبهشت",
-      length: PersianJS("1").englishNumber().toString(),
-      image_url: require("../../../assets/img/samples/KalleGhandi.jpg"),
-    },
-    {
-      id: "3",
-      title: "غار گل زرد",
-      gender: "F",
-      date: PersianJS("11").englishNumber().toString() + " " + "آبان",
-      length: PersianJS("1").englishNumber().toString(),
-      image_url: require("../../../assets/img/samples/GoleZard.jpg"),
-    },
-  ];
+      date:
+        PersianJS(moment(event.date).locale("fa").format("D"))
+          .englishNumber()
+          .toString() +
+        " " +
+        moment(event.date).locale("fa").format("MMMM"),
+      gender: event.gender,
+    });
+  });
+  return processedData;
+}
 
+const EventsList = ({ navigation, data }) => {
+  let DATA = getProcessedData(data);
   return (
     <Container style={{ backgroundColor: "transparent" }}>
       <FlatList

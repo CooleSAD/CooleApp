@@ -1,24 +1,11 @@
 import { combineReducers } from 'redux';
 
 import { loginReducer } from './login';
-
-export const initialState = {
-    login : {
-        loading : false,
-        success : false,
-        error : false,
-        token : ''
-    },
-    signup : {
-        loading : false,
-        success : false,
-        error : false,
-    }
-    
-}
+import { homeReducer } from './home';
 
 const cooleApp = combineReducers({
     loginReducer,
+    homeReducer
 })
 
 export default cooleApp
