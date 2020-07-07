@@ -26,16 +26,16 @@ const HomeNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        options={{
+        options={({ route, navigation }) => ({
           title: "کوله",
           headerTitleStyle: { fontFamily: "IRANSans_bold" },
           headerTitleAlign: "center",
           headerLeft: () => (
-            <Button dark transparent>
-              <Icon name='menu'/>
+            <Button onPress={() => navigation.toggleDrawer()} dark transparent>
+              <Icon name="menu" />
             </Button>
-          )
-        }}
+          ),
+        })}
         name="Home"
         component={HomeScreen}
       />

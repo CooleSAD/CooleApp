@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Text, Spinner, View } from "native-base";
+import { Container, Text, Spinner, View , Button} from "native-base";
 import { ImageBackground, StyleSheet } from "react-native";
 import {connect} from 'react-redux'
 
