@@ -81,6 +81,13 @@ const MainNavigator = () => {
         name="Properties"
         component={HomeScreen}
       />
+      <Drawer.Screen
+        options={{
+          title: "نیازمندی ها",
+        }}
+        name="Needs"
+        component={HomeScreen}
+      />
     </Drawer.Navigator>
   );
 };
