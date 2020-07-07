@@ -5,6 +5,7 @@ import PersianJS from "persianjs";
 import moment from "jalali-moment";
 
 import EventCard from "./EventCard";
+import { BASE_ADDRESS } from '../../utils/api';
 
 function getProcessedData(data) {
   let processedData = [];
@@ -13,7 +14,7 @@ function getProcessedData(data) {
       id: event.id.toString(),
       title: event.name,
       length: PersianJS(event.length).englishNumber().toString(),
-      image_url: require("../../../assets/img/samples/ZardLimeh.jpg"),
+      image_url: BASE_ADDRESS + event.image,
       date:
         PersianJS(moment(event.date).locale("fa").format("D"))
           .englishNumber()

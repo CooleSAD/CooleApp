@@ -28,7 +28,7 @@ const EventCard = ({ title, date, gender, length, image_url, navigation }) => {
           <CardItem bordered cardBody style={styles.ImageCardItem}>
             <Image
               resizeMode={"cover"}
-              source={image_url}
+              source={{uri : image_url}}
               style={styles.Image}
             />
           </CardItem>
