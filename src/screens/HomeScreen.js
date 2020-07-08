@@ -5,7 +5,9 @@ import {connect} from 'react-redux'
 
 import EventsList from "../components/home/EventsList";
 import { eventsLoading, eventsLoaded, eventsError } from '../redux/actions/home';
+import { fetchProfileSuccess } from '../redux/actions/profile';
 import { requestEvents } from '../utils/requests/events';
+import { requestFetchProfile } from '../utils/requests/profile';
 
 class HomeScreen extends Component {
 
@@ -24,6 +26,15 @@ class HomeScreen extends Component {
     .catch((err) => {
       this.props.eventsError()
     })
+
+    requestFetchProfile(this.props.token)
+      .then((res2) => {
+        console.warn(res2.data)
+        this.props.fetchProfileSuccess(res2.data)
+      })
+      .catch((err) => {
+        console.warn("error getting profile")
+      })
   }
 
   render() {
@@ -59,7 +70,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   eventsLoading : () => dispatch(eventsLoading()),
   eventsError : () => dispatch(eventsError()),
-  eventsLoaded : () => dispatch(eventsLoaded)
+  eventsLoaded : () => dispatch(eventsLoaded),
+  fetchProfileSuccess : (data) => dispatch(fetchProfileSuccess(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

@@ -16,4 +16,9 @@ export const initialState = {
         eventsError : false,
         navigatedEvent : ''
     },
+    profile : {
+        data : {
+            
+        }
+    }
 }
