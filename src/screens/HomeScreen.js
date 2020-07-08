@@ -29,7 +29,6 @@ class HomeScreen extends Component {
 
     requestFetchProfile(this.props.token)
       .then((res2) => {
-        console.warn(res2.data)
         this.props.fetchProfileSuccess(res2.data)
       })
       .catch((err) => {

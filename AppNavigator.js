@@ -9,7 +9,9 @@ import LoginScreen from "./src/screens/LoginScreen";
 import SignupScreen from "./src/screens/SignUpScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import EventScreen from "./src/screens/EventScreen";
+import ProfileScreen from "./src/screens/ProfileScreen"
 import CustomDrawer from "./src/components/global/customDrawer";
+
 
 const Stack = createStackNavigator();
 
@@ -58,6 +60,27 @@ const mapStateToHomeNavProps = state => ({
 
 const connectedHomeNavigater = connect(mapStateToHomeNavProps, null)(HomeNavigator)
 
+const ProfileNavigator = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen
+        options={({ route, navigation }) => ({
+          title: "پروفایل من",
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Button onPress={() => navigation.toggleDrawer()} dark transparent>
+              <Icon name="menu" />
+            </Button>
+          ),
+        })}
+        name="Profile"
+        component={ProfileScreen}
+      />
+    </Stack.Navigator>
+  )
+}
+
 const Drawer = createDrawerNavigator();
 
 const MainNavigator = () => {
@@ -72,6 +95,13 @@ const MainNavigator = () => {
         }}
         name="HomeNav"
         component={connectedHomeNavigater}
+      />
+      <Drawer.Screen
+        options={{
+          title: "پروفایل من",
+        }}
+        name="ProfileNav"
+        component={ProfileNavigator}
       />
       <Drawer.Screen
         options={{
