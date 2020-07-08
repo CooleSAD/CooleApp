@@ -1,5 +1,5 @@
 import { initialState } from './initialState';
-import { EVENTS_LOADING, EVENTS_LOADED, EVENTS_ERROR } from '../actions/home';
+import { EVENTS_LOADING, EVENTS_LOADED, EVENTS_ERROR, NAVIGATE_TO_EVENT } from '../actions/home';
 
 export function homeReducer(state = initialState.home, action) {
     switch(action.type) {
@@ -9,6 +9,8 @@ export function homeReducer(state = initialState.home, action) {
             return Object.assign({}, state, {eventsLoading : false, eventsError : false, eventsLoaded : true})
         case EVENTS_ERROR:
             return Object.assign({}, state, {eventsLoading : false, eventsError : true, eventsLoaded : true})
+        case NAVIGATE_TO_EVENT: 
+            return Object.assign({}, state, {navigatedEvent : action.eventTitle})
         default:
             return state
     }

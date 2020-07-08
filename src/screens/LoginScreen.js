@@ -53,7 +53,6 @@ class LoginScreen extends Component {
 
     requestLogin(data)
       .then((res) => {
-        console.warn("success");
         successLogin(res.data.auth_token)
       })
       .catch((err) => this.showErrorToast());

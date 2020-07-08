@@ -13,6 +13,7 @@ export const initialState = {
     home : {
         eventsLoading : false,
         eventsLoaded : false,
-        eventsError : false
-    }
+        eventsError : false,
+        navigatedEvent : ''
+    },
 }

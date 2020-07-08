@@ -1,7 +1,9 @@
 import React from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Card, CardItem, Left, Right, Body, Text, Content } from "native-base";
-import FastImage from "react-native-fast-image";
+import { connect } from "react-redux";
+
+import { navigateToEvent } from "../../redux/actions/home";
 
 function GenderIcon(gender) {
   if (gender === "M") {
@@ -20,15 +22,45 @@ function GenderIcon(gender) {
   );
 }
 
-const EventCard = ({ title, date, gender, length, image_url, navigation }) => {
+const EventCard = ({
+  title,
+  date,
+  gender,
+  length,
+  image_url,
+  description,
+  coordination_date,
+  difficulty_level,
+  coordinator,
+  coordinator_phone_number,
+  navigation,
+  navigateToEvent,
+}) => {
   return (
     <Content style={{ marginVertical: 1, width: "95%", alignSelf: "center" }}>
       <Card style={{ borderRadius: 25 }}>
-        <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('Event')}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => {
+            navigateToEvent(title);
+            navigation.navigate("Event", {
+              title,
+              date,
+              gender,
+              length,
+              image_url,
+              description,
+              coordination_date,
+              difficulty_level,
+              coordinator,
+              coordinator_phone_number,
+            });
+          }}
+        >
           <CardItem bordered cardBody style={styles.ImageCardItem}>
             <Image
               resizeMode={"cover"}
-              source={{uri : image_url}}
+              source={{ uri: image_url }}
               style={styles.Image}
             />
           </CardItem>
@@ -55,7 +87,7 @@ const EventCard = ({ title, date, gender, length, image_url, navigation }) => {
               note
               style={{ fontFamily: "IRANSans_medium", color: "#020202FF" }}
             >
-              {length + " " + "شب"}
+              {length}
             </Text>
           </Right>
         </CardItem>
@@ -64,7 +96,11 @@ const EventCard = ({ title, date, gender, length, image_url, navigation }) => {
   );
 };
 
-export default EventCard;
+const mapDispatchToProps = (dispatch) => ({
+  navigateToEvent: (title) => dispatch(navigateToEvent(title)),
+});
+
+export default connect(null, mapDispatchToProps)(EventCard);
 
 const styles = StyleSheet.create({
   ImageCardItem: {

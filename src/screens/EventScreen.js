@@ -1,53 +1,46 @@
 import React, { Component } from "react";
-import { Container, Text, View } from "native-base";
+import { Container, Text, View, Button } from "native-base";
 import { StyleSheet, ImageBackground } from "react-native";
-import SquareThumbnail from "../components/event/SquareThumbnail";
 import { LinearGradient } from "expo-linear-gradient";
+import PersianJS from "persianjs";
+
+import SquareThumbnail from "../components/event/SquareThumbnail";
+import EventFooterItem from "../components/event/EventFooterItem";
 
 function GenderText(gender) {
   if (gender === "M") {
-    return "Male";
+    return "پسران";
   }
-  return "Female";
+  return "دختران";
 }
+
 function GenderIcon(gender) {
   if (gender === "M") {
-    return "male";
+    return "user";
   }
-  return "female";
+  return "user-female";
 }
 
 export default class EventScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: "Event Name",
-      gender: "M",
-      date: "Date",
-      length: "Length",
-      coordinator: "Coordinator",
-      difficulty: "Difficulty",
-      description: "Description",
-      gatheringDate: "Gathering Session",
-      image_url: require("../../assets/img/samples/KalleGhandi.jpg"),
-    };
   }
   render() {
     const {
-      title,
-      gender,
       date,
+      gender,
       length,
-      coordinator,
-      difficulty,
-      description,
-      gatheringDate,
       image_url,
-    } = this.state;
+      description,
+      coordination_date,
+      difficulty_level,
+      coordinator,
+      coordinator_phone_number,
+    } = this.props.route.params;
     return (
       <Container style={{ backgroundColor: "#FAFAFAFF" }}>
         <View style={styles.EventDescription_Image}>
-          <ImageBackground source={image_url} style={styles.Image}>
+          <ImageBackground source={{ uri: image_url }} style={styles.Image}>
             <View
               style={{
                 alignItems: "center",
@@ -59,15 +52,11 @@ export default class EventScreen extends Component {
                 colors={["#FAFAFA00", "#FAFAFA10", "#FAFAFAFF"]}
                 style={styles.LinearGradient}
               />
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  color: "#FAFAFAFF",
-                  textAlign: "center",
-                }}
-              >
-                {title}
-              </Text>
+              <View style={styles.EnrollButtonContainer}>
+                <Button style={styles.EnrollButton} info>
+                  <Text style={styles.EnrollButtonText}>شرکت در رویداد</Text>
+                </Button>
+              </View>
             </View>
           </ImageBackground>
         </View>
@@ -77,7 +66,10 @@ export default class EventScreen extends Component {
             <SquareThumbnail inputText={date} name="calendar" />
           </View>
           <View style={styles.SquareThumbnail}>
-            <SquareThumbnail inputText={GenderText(gender)} name="user" />
+            <SquareThumbnail
+              inputText={GenderText(gender)}
+              name={GenderIcon(gender)}
+            />
           </View>
           <View style={styles.SquareThumbnail}>
             <SquareThumbnail inputText={length} name="clock" />
@@ -87,20 +79,27 @@ export default class EventScreen extends Component {
         <View style={styles.EventDescription_Text}>
           <Text style={styles.Text}>{description}</Text>
           <Text style={styles.Text}>
-            {"\n"}
-            {gatheringDate}
+            {"\n\n"}
+            {"زمان جلسه توجیهی : " + coordination_date}
           </Text>
         </View>
 
         <View style={styles.EventDescription_FooterThumbnails}>
           <View style={styles.SquareThumbnail}>
-            <SquareThumbnail inputText={difficulty} isFooter name="link" />
+            <EventFooterItem
+              type="difficulty_level"
+              content={difficulty_level}
+            />
           </View>
           <View style={styles.SquareThumbnail}>
-            <SquareThumbnail
-              inputText={coordinator}
-              isFooter
-              name="user-following"
+            <EventFooterItem type="coordinator" content={coordinator} />
+          </View>
+          <View style={styles.SquareThumbnail}>
+            <EventFooterItem
+              type="coordinator_phone_number"
+              content={PersianJS(coordinator_phone_number)
+                .englishNumber()
+                .toString()}
             />
           </View>
         </View>
@@ -128,14 +127,17 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     borderColor: "#6B8E2325",
     flex: 1,
+    justifyContent: "center",
   },
 
   Text: {
     fontSize: 16,
+    fontFamily: "IRANSans",
+    textAlign: "center",
   },
 
   EventDescription_Image: {
-    flex: 6,
+    flex: 4,
   },
 
   EventDescription_Thumbnails: {
@@ -147,9 +149,28 @@ const styles = StyleSheet.create({
 
   EventDescription_Text: {
     flex: 3,
+    alignItems: "center",
+    paddingTop: 20,
+    width: "80%",
+    alignSelf: "center",
   },
 
   EventDescription_FooterThumbnails: {
+    flex: 1.5,
+  },
+
+  EnrollButtonContainer: {
     flex: 1,
+    justifyContent: "flex-end",
+  },
+
+  EnrollButton: {
+    marginBottom: 15,
+    borderRadius: 20,
+  },
+
+  EnrollButtonText: {
+    fontSize: 16,
+    fontFamily: "IRANSans_bold",
   },
 });

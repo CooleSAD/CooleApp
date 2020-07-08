@@ -22,7 +22,7 @@ const AuthNavigator = () => {
   );
 };
 
-const HomeNavigator = () => {
+const HomeNavigator = ({navigatedEventTitle}) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -41,7 +41,7 @@ const HomeNavigator = () => {
       />
       <Stack.Screen
         options={{
-          title: "رویداد",
+          title: navigatedEventTitle,
           headerTitleStyle: { fontFamily: "IRANSans_bold" },
           headerTitleAlign: "center",
         }}
@@ -51,6 +51,12 @@ const HomeNavigator = () => {
     </Stack.Navigator>
   );
 };
+
+const mapStateToHomeNavProps = state => ({
+  navigatedEventTitle : state.homeReducer.navigatedEvent
+})
+
+const connectedHomeNavigater = connect(mapStateToHomeNavProps, null)(HomeNavigator)
 
 const Drawer = createDrawerNavigator();
 
@@ -65,7 +71,7 @@ const MainNavigator = () => {
           title: "صفحه اصلی",
         }}
         name="HomeNav"
-        component={HomeNavigator}
+        component={connectedHomeNavigater}
       />
       <Drawer.Screen
         options={{
@@ -99,11 +105,6 @@ const AppNavigator = ({ token }) => {
       <Stack.Navigator>
         {isAuthenticated ? (
           <Stack.Screen
-            // options={{
-            //   title: "کوله",
-            //   headerTitleStyle: { fontFamily: "IRANSans_bold" },
-            //   headerTitleAlign: "center",
-            // }}
             options={{ headerShown: false }}
             name="MainNavigator"
             component={MainNavigator}
