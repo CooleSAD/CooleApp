@@ -30,14 +30,46 @@ const Item = ({ icon_name, title, value }) => {
   );
 };
 
-const ListItems = () => {
+function getNickname(nickname) {
+  if(nickname === "") {
+    return "نامشخص"
+  }
+  return nickname
+}
+
+function getGender(gender) {
+  if(gender === "" || gender === "M")
+    return "آقا"
+  return "خانم"
+}
+
+function getGenderIcon(gender) {
+  if(gender === "" || gender === "M")
+    return "md-male"
+  return "md-female"
+}
+
+function getCity(city) {
+  if(city === "") {
+    return "نامشخص"
+  }
+  return city
+}
+
+function getHasCar(hasCar) {
+  if(hasCar)
+    return "بله"
+  return "خیر"
+}
+
+const ListItems = ({data}) => {
   return (
     <Container>
       <Content style={{ width: "100%", alignSelf: "center" }}>
-        <Item icon_name="md-person" title="نام مستعار" value="نامشخص"/>
-        <Item icon_name="md-male" title="جنسیت" value="آقا"/>
-        <Item icon_name="md-business" title="شهر" value="نامشخص"/>
-        <Item icon_name="md-car" title="دارای خودرو" value="خیر"/>
+        <Item icon_name="md-person" title="نام مستعار" value={getNickname(data.nickname)}/>
+        <Item icon_name={getGenderIcon(data.gender)} title="جنسیت" value={getGender(data.gender)}/>
+        <Item icon_name="md-business" title="شهر" value={getCity(data.city)}/>
+        <Item icon_name="md-car" title="دارای خودرو" value={getHasCar(data.has_car)}/>
         
       </Content>
     </Container>

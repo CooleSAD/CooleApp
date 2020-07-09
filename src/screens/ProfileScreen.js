@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { View, Container, Thumbnail, Text, Button } from "native-base";
+import { StyleSheet } from "react-native";
+import { connect } from 'react-redux';
 
 import ListItems from "../components/profile/ListItems";
-import { StyleSheet } from "react-native";
+
 
 class ProfileScreen extends Component {
   render() {
+    const {data} = this.props
     return (
       <Container style={{ flex: 2 }}>
         <View
@@ -18,16 +21,16 @@ class ProfileScreen extends Component {
           <Text
             style={{ fontSize: 14, marginTop: 8, fontFamily: "IRANSans_bold" }}
           >
-            admin@admin.com
+            {data.user}
           </Text>
         </View>
         <View style={{ flex: 2 }}>
-          <ListItems />
+          <ListItems data={data}/>
         </View>
         <View style={{ flex: 0.5 }}>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} info>
-              <Text style={styles.buttonText}>تکمیل پروفایل</Text>
+              <Text style={styles.buttonText}>{data.is_completed ? "ویرایش پروفایل" : "تکمیل پروفایل"}</Text>
             </Button>
           </View>
         </View>
@@ -35,6 +38,10 @@ class ProfileScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  data : state.profileReducer.data
+})
 
 const styles = StyleSheet.create({
   button: {
@@ -51,4 +58,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProfileScreen;
+export default connect(mapStateToProps, null)(ProfileScreen);
