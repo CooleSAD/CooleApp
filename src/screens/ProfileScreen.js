@@ -8,7 +8,7 @@ import ListItems from "../components/profile/ListItems";
 
 class ProfileScreen extends Component {
   render() {
-    const {data} = this.props
+    const {data, navigation} = this.props
     return (
       <Container style={{ flex: 2 }}>
         <View
@@ -29,7 +29,7 @@ class ProfileScreen extends Component {
         </View>
         <View style={{ flex: 0.5 }}>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} info>
+            <Button onPress={() => navigation.navigate("EditProfile")} style={styles.button} info>
               <Text style={styles.buttonText}>{data.is_completed ? "ویرایش پروفایل" : "تکمیل پروفایل"}</Text>
             </Button>
           </View>

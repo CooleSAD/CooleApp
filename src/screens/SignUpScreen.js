@@ -142,12 +142,16 @@ export default class SignupScreen extends Component {
                       type="firstName"
                       onChangeText={this.onChangeField}
                       label="نام"
+                      color="white"
+                      value={this.state.firstName}
                     />
                     <TextInput
                       style={styles.nameField}
                       type="lastName"
                       onChangeText={this.onChangeField}
                       label="نام خانوادگی"
+                      color="white"
+                      value={this.state.lastName}
                     />
                   </View>
                   <TextInput
@@ -156,6 +160,8 @@ export default class SignupScreen extends Component {
                     onChangeText={this.onChangeField}
                     password
                     label="گذرواژه"
+                    color="white"
+                    value={this.state.password}
                   />
                   <TextInput
                     error={!this.isConfirmPasswordValid()}
@@ -163,12 +169,16 @@ export default class SignupScreen extends Component {
                     onChangeText={this.onChangeField}
                     password
                     label="تکرار گذرواژه"
+                    color="white"
+                    value={this.state.confirmPassword}
                   />
                   <TextInput
                     error={!this.isEmailValid()}
                     type="email"
                     onChangeText={this.onChangeField}
                     label="ایمیل"
+                    color="white"
+                    value={this.state.email}
                   />
                 </Form>
               </Container>

@@ -99,12 +99,16 @@ class LoginScreen extends Component {
                     onChangeText={this.onChangeField}
                     type="email"
                     label="ایمیل"
+                    color="white"
+                    value={this.state.email}
                   />
                   <TextInput
                     onChangeText={this.onChangeField}
                     type="password"
                     password
                     label="گذرواژه"
+                    color="white"
+                    value={this.state.password}
                   />
                 </Form>
               </Container>

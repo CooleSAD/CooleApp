@@ -10,6 +10,8 @@ import SignupScreen from "./src/screens/SignUpScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import EventScreen from "./src/screens/EventScreen";
 import ProfileScreen from "./src/screens/ProfileScreen"
+import EditProfileScreen from "./src/screens/EditProfileScreen"
+
 import CustomDrawer from "./src/components/global/customDrawer";
 
 
@@ -76,6 +78,15 @@ const ProfileNavigator = () => {
         })}
         name="Profile"
         component={ProfileScreen}
+      />
+      <Stack.Screen
+        options={{
+          title: "ویرایش پروفایل",
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+        }}
+        name="EditProfile"
+        component={EditProfileScreen}
       />
     </Stack.Navigator>
   )
