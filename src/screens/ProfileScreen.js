@@ -10,7 +10,7 @@ class ProfileScreen extends Component {
   render() {
     const {data, navigation} = this.props
     return (
-      <Container style={{ flex: 2 }}>
+      <Container style={{ flex: 1, backgroundColor:'#edffef' }}>
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >

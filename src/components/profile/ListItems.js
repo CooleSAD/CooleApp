@@ -64,7 +64,7 @@ function getHasCar(hasCar) {
 
 const ListItems = ({data}) => {
   return (
-    <Container>
+    <Container style={{ backgroundColor:'#edffef'}}>
       <Content style={{ width: "100%", alignSelf: "center" }}>
         <Item icon_name="md-person" title="نام مستعار" value={getNickname(data.nickname)}/>
         <Item icon_name={getGenderIcon(data.gender)} title="جنسیت" value={getGender(data.gender)}/>

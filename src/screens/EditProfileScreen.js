@@ -96,7 +96,7 @@ class EditProfileScreen extends Component {
   render() {
     const { data } = this.props;
     return (
-      <Container style={{ flex: 1 }}>
+      <Container style={{ flex: 1, backgroundColor:'#edffef' }}>
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
@@ -212,6 +212,7 @@ const styles = StyleSheet.create({
   inputsContainer: {
     width: "90%",
     alignSelf: "center",
+    backgroundColor:'#edffef'
   },
   button: {
     borderRadius: 20,
