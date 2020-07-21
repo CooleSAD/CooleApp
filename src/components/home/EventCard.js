@@ -23,6 +23,7 @@ function GenderIcon(gender) {
 }
 
 const EventCard = ({
+  id,
   title,
   date,
   gender,
@@ -44,6 +45,7 @@ const EventCard = ({
           onPress={() => {
             navigateToEvent(title);
             navigation.navigate("Event", {
+              id,
               title,
               date,
               gender,

@@ -46,6 +46,7 @@ const EventsList = ({ navigation, data }) => {
         data={DATA}
         renderItem={({ item }) => (
           <EventCard
+            id={item.id}
             title={item.title}
             gender={item.gender}
             date={item.date}

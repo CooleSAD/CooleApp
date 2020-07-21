@@ -3,9 +3,12 @@ import { Container, Text, View, Button } from "native-base";
 import { StyleSheet, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import PersianJS from "persianjs";
+import { connect } from "react-redux";
+import Modal from "react-native-modal";
 
 import SquareThumbnail from "../components/event/SquareThumbnail";
 import EventFooterItem from "../components/event/EventFooterItem";
+import { requestEvent, requestEnrollEvent } from "../utils/requests/events";
 
 function GenderText(gender) {
   if (gender === "M") {
@@ -21,10 +24,113 @@ function GenderIcon(gender) {
   return "user-female";
 }
 
-export default class EventScreen extends Component {
+class EventScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isModalVisible: false,
+      hasEnrolled: false,
+    };
   }
+
+  componentDidMount() {
+    const { token } = this.props;
+    const { id } = this.props.route.params;
+    requestEvent(token, id)
+      .then((res) => {
+        this.setState({ hasEnrolled: res.data.has_enrolled });
+      })
+      .catch((err) => console.warn(err));
+  }
+
+  enrollEvent = () => {
+    const { token } = this.props;
+    const { id } = this.props.route.params;
+    requestEnrollEvent(token, id)
+      .then((res) => {
+        if (res.data.success) {
+          this.setState({ hasEnrolled: true });
+          this.toggleModal();
+        } else {
+          console.warn("error");
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
+
+  notCompletedProfileModal = () => {
+    const { navigation } = this.props;
+    return (
+      <View style={styles.modal}>
+        <Text style={styles.modalText}>
+          لطفا برای شرکت در رویداد ابتدا پروفایل خود را تکمیل کنید.
+        </Text>
+        <Button
+          info
+          style={styles.modalButton}
+          onPress={() => {
+            this.toggleModal();
+            navigation.navigate("ProfileNav");
+          }}
+        >
+          <Text style={styles.modalButtonText}>تکمیل پروفایل</Text>
+        </Button>
+      </View>
+    );
+  };
+
+  notAppropriateProfileModal = () => {
+    return (
+      <View style={styles.modal}>
+        <Text style={styles.modalText}>
+          امکان شرکت در این رویداد برای شما وجود ندارد.
+        </Text>
+        <Button danger style={styles.modalButton} onPress={this.toggleModal}>
+          <Text style={styles.modalButtonText}>باشه</Text>
+        </Button>
+      </View>
+    );
+  };
+
+  confirmEnrollModal = () => {
+    return (
+      <View style={styles.modal}>
+        <Text style={styles.modalText}>
+          تمایل خود به شرکت در رویداد را تایید می کنید؟
+        </Text>
+        <View style={styles.modalButtonsContainer}>
+          <Button success style={styles.modalButton} onPress={this.enrollEvent}>
+            <Text style={styles.modalButtonText}>بله</Text>
+          </Button>
+          <Button danger style={styles.modalButton} onPress={this.toggleModal}>
+            <Text style={styles.modalButtonText}>خیر</Text>
+          </Button>
+        </View>
+      </View>
+    );
+  };
+
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
+
+  renderModal = () => {
+    const { isProfileCompleted, gender, route } = this.props;
+    if (!isProfileCompleted) {
+      return this.notCompletedProfileModal();
+    } else {
+      if (gender !== route.params.gender)
+        return this.notAppropriateProfileModal();
+      else return this.confirmEnrollModal();
+    }
+  };
+
+  getButtonText = () => {
+    return this.state.hasEnrolled ? "ورود به رویداد" : "شرکت در رویداد";
+  };
+
   render() {
     const {
       date,
@@ -39,6 +145,12 @@ export default class EventScreen extends Component {
     } = this.props.route.params;
     return (
       <Container style={{ backgroundColor: "#FAFAFAFF" }}>
+        <Modal
+          onBackdropPress={this.toggleModal}
+          isVisible={this.state.isModalVisible}
+        >
+          {this.renderModal()}
+        </Modal>
         <View style={styles.EventDescription_Image}>
           <ImageBackground source={{ uri: image_url }} style={styles.Image}>
             <View
@@ -53,8 +165,16 @@ export default class EventScreen extends Component {
                 style={styles.LinearGradient}
               />
               <View style={styles.EnrollButtonContainer}>
-                <Button style={styles.EnrollButton} info>
-                  <Text style={styles.EnrollButtonText}>شرکت در رویداد</Text>
+                <Button
+                  onPress={this.toggleModal}
+                  style={styles.EnrollButton}
+                  info
+                  //todo
+                  disabled={this.state.hasEnrolled}
+                >
+                  <Text style={styles.EnrollButtonText}>
+                    {this.getButtonText()}
+                  </Text>
                 </Button>
               </View>
             </View>
@@ -107,6 +227,12 @@ export default class EventScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  isProfileCompleted: state.profileReducer.data.is_completed,
+  gender: state.profileReducer.data.gender,
+  token: state.loginReducer.token,
+});
 
 const styles = StyleSheet.create({
   LinearGradient: {
@@ -173,4 +299,39 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "IRANSans_bold",
   },
+
+  modal: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+  },
+
+  modalText: {
+    fontFamily: "IRANSans",
+    fontSize: 16,
+    alignSelf: "center",
+    textAlign: "center",
+  },
+
+  modalButton: {
+    width: "40%",
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+
+  modalButtonText: {
+    fontSize: 16,
+    fontFamily: "IRANSans_bold",
+  },
+
+  modalButtonsContainer: {
+    flexDirection: "row-reverse",
+    width: "80%",
+    alignSelf: "center",
+    justifyContent: "space-around",
+  },
 });
+
+export default connect(mapStateToProps, null)(EventScreen);

@@ -4,3 +4,4 @@ export const LOGIN_API = BASE_ADDRESS + "/auth/token/login/"
 export const LOGOUT_API = BASE_ADDRESS + "/auth/token/logout/"
 export const EVENTS_API = BASE_ADDRESS + "/events/"
 export const PROFILE_API = BASE_ADDRESS + "/users/me/"
+export const EVENT_API = (id) => BASE_ADDRESS + `/events/${id}/`
