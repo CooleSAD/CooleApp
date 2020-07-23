@@ -11,6 +11,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import EventScreen from "./src/screens/EventScreen";
 import ProfileScreen from "./src/screens/ProfileScreen"
 import EditProfileScreen from "./src/screens/EditProfileScreen"
+import MyEventsScreen from "./src/screens/MyEventsScreen"
 
 import CustomDrawer from "./src/components/global/customDrawer";
 
@@ -92,6 +93,27 @@ const ProfileNavigator = () => {
   )
 }
 
+const MyEventsNavigator = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen
+        options={({ route, navigation }) => ({
+          title: "رویداد های من",
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Button onPress={() => navigation.toggleDrawer()} dark transparent>
+              <Icon name="menu" />
+            </Button>
+          ),
+        })}
+        name="Profile"
+        component={MyEventsScreen}
+      />
+    </Stack.Navigator>
+  )
+}
+
 const Drawer = createDrawerNavigator();
 
 const MainNavigator = () => {
@@ -119,7 +141,7 @@ const MainNavigator = () => {
           title: "رویداد‌‌ های من",
         }}
         name="MyEvents"
-        component={HomeScreen}
+        component={MyEventsNavigator}
       />
       <Drawer.Screen
         options={{
