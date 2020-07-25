@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import { Container, Text } from "native-base";
 import PersianJS from "persianjs";
 import moment from "jalali-moment";
@@ -37,13 +37,14 @@ function getProcessedData(data) {
   return processedData;
 }
 
-const EventsList = ({ navigation, data }) => {
+const EventsList = ({ navigation, data, refresh, refreshing }) => {
   let DATA = getProcessedData(data);
   return (
     <Container style={{ backgroundColor: "transparent" }}>
       <FlatList
         style={{ marginBottom: 10 }}
         data={DATA}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh}/>}
         renderItem={({ item }) => (
           <EventCard
             id={item.id}

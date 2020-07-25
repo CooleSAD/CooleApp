@@ -35,3 +35,12 @@ export function requestEnrollEvent(token, id) {
     },
   });
 }
+
+export function requestCancelEnrollEvent(token, id) {
+  return axios.delete(EVENT_API(id),
+  {
+    headers: {
+      Authorization: "Token " + token,
+    },
+  });
+}

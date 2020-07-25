@@ -14,6 +14,9 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props)
     this.data = []
+    this.state = {
+      refreshing : false
+    }
   }
 
   componentDidMount() {
@@ -36,13 +39,28 @@ class HomeScreen extends Component {
       })
   }
 
+  refresh = () => {
+    this.props.eventsLoading()
+    this.setState({refreshing : true})
+    requestEvents(this.props.token)
+    .then((res) => {
+      this.data = res.data
+      this.props.eventsLoaded()
+      this.setState({refreshing : false})
+    })
+    .catch((err) => {
+      this.props.eventsError()
+      this.setState({refreshing : false})
+    })
+  }
+
   render() {
     const { navigation, loading, loaded, error } = this.props;
     let content = <View></View>;
     if (loading) {
       content = <Spinner color='blue'/>
     } else if(loaded) {
-      content = <EventsList data={this.data} navigation={navigation} />
+      content = <EventsList refresh={this.refresh} refreshing={this.state.refreshing} data={this.data} navigation={navigation} />
     } else {
       content = <Text>error</Text>
     }
@@ -69,7 +87,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   eventsLoading : () => dispatch(eventsLoading()),
   eventsError : () => dispatch(eventsError()),
-  eventsLoaded : () => dispatch(eventsLoaded),
+  eventsLoaded : () => dispatch(eventsLoaded()),
   fetchProfileSuccess : (data) => dispatch(fetchProfileSuccess(data))
 })
 
