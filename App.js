@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 
 import AppNavigator from "./AppNavigator";
 import cooleApp from "./src/redux/reducers/index";
+import Assets from './src/screens/Assets';
+import HomeScreen from './src/screens/HomeScreen';
 
 const store = createStore(cooleApp);
 
@@ -40,6 +42,8 @@ export default class App extends Component {
     }
 
     return (
+
+      
       <Provider store={store}>
         <Container>
           <Root>
@@ -47,6 +51,7 @@ export default class App extends Component {
           </Root>
         </Container>
       </Provider>
+      
     );
   }
 }

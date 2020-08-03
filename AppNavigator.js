@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator} from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { connect } from "react-redux";
 import { View, Text, Button, Icon } from "native-base";
@@ -14,6 +14,7 @@ import EditProfileScreen from "./src/screens/EditProfileScreen"
 import MyEventsScreen from "./src/screens/MyEventsScreen"
 
 import CustomDrawer from "./src/components/global/customDrawer";
+import Assets from "./src/screens/Assets";
 
 
 const Stack = createStackNavigator();
@@ -114,6 +115,27 @@ const MyEventsNavigator = () => {
   )
 }
 
+const AssetsNavigator = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen
+        options={({ route, navigation }) => ({
+          title: "اموال",
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Button onPress={() => navigation.toggleDrawer()} dark transparent>
+              <Icon name="menu" />
+            </Button>
+          ),
+        })}
+        name="Profile"
+        component={Assets}
+      />
+    </Stack.Navigator>
+  )
+}
+
 const Drawer = createDrawerNavigator();
 
 const MainNavigator = () => {
@@ -147,8 +169,8 @@ const MainNavigator = () => {
         options={{
           title: "اموال",
         }}
-        name="Properties"
-        component={HomeScreen}
+        name="Properties" 
+        component={AssetsNavigator}
       />
       <Drawer.Screen
         options={{
