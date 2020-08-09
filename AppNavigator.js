@@ -12,9 +12,10 @@ import EventScreen from "./src/screens/EventScreen";
 import ProfileScreen from "./src/screens/ProfileScreen"
 import EditProfileScreen from "./src/screens/EditProfileScreen"
 import MyEventsScreen from "./src/screens/MyEventsScreen"
+import PropertiesScreen from "./src/screens/PropertiesScreen";
 
 import CustomDrawer from "./src/components/global/customDrawer";
-import Assets from "./src/screens/Assets";
+
 
 
 const Stack = createStackNavigator();
@@ -130,7 +131,7 @@ const AssetsNavigator = () => {
           ),
         })}
         name="Profile"
-        component={Assets}
+        component={PropertiesScreen}
       />
     </Stack.Navigator>
   )
