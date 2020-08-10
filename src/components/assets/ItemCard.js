@@ -12,7 +12,7 @@ import {
 } from "native-base";
 import PersianJS from "persianjs";
 
-const ItemCard = ({ title, image_url, price }) => {
+const ItemCard = ({ title, image_url, price, toggleModal }) => {
   return (
     <Content style={{ marginVertical: 1, alignSelf: "center" }}>
       <Card style={{ borderRadius: 25, backgroundColor: "#f6f6f6" }}>
@@ -45,6 +45,7 @@ const ItemCard = ({ title, image_url, price }) => {
           <Button
             style={{ width: "50%", justifyContent: "center", borderRadius: 20 }}
             info
+            onPress={toggleModal}
           >
             <Text style={{ fontFamily: "IRANSans_bold", fontSize: 14 }}>
               رزرو

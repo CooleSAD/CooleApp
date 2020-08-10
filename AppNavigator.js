@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { connect } from "react-redux";
 import { View, Text, Button, Icon } from "native-base";
@@ -9,14 +9,13 @@ import LoginScreen from "./src/screens/LoginScreen";
 import SignupScreen from "./src/screens/SignUpScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import EventScreen from "./src/screens/EventScreen";
-import ProfileScreen from "./src/screens/ProfileScreen"
-import EditProfileScreen from "./src/screens/EditProfileScreen"
-import MyEventsScreen from "./src/screens/MyEventsScreen"
+import ProfileScreen from "./src/screens/ProfileScreen";
+import EditProfileScreen from "./src/screens/EditProfileScreen";
+import MyEventsScreen from "./src/screens/MyEventsScreen";
 import PropertiesScreen from "./src/screens/PropertiesScreen";
+import MyPropertiesScreen from "./src/screens/MyPropertiesScreen";
 
 import CustomDrawer from "./src/components/global/customDrawer";
-
-
 
 const Stack = createStackNavigator();
 
@@ -29,7 +28,7 @@ const AuthNavigator = () => {
   );
 };
 
-const HomeNavigator = ({navigatedEventTitle}) => {
+const HomeNavigator = ({ navigatedEventTitle }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -59,14 +58,17 @@ const HomeNavigator = ({navigatedEventTitle}) => {
   );
 };
 
-const mapStateToHomeNavProps = state => ({
-  navigatedEventTitle : state.homeReducer.navigatedEvent
-})
+const mapStateToHomeNavProps = (state) => ({
+  navigatedEventTitle: state.homeReducer.navigatedEvent,
+});
 
-const connectedHomeNavigater = connect(mapStateToHomeNavProps, null)(HomeNavigator)
+const connectedHomeNavigater = connect(
+  mapStateToHomeNavProps,
+  null
+)(HomeNavigator);
 
 const ProfileNavigator = () => {
-  return(
+  return (
     <Stack.Navigator>
       <Stack.Screen
         options={({ route, navigation }) => ({
@@ -92,11 +94,11 @@ const ProfileNavigator = () => {
         component={EditProfileScreen}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const MyEventsNavigator = () => {
-  return(
+  return (
     <Stack.Navigator>
       <Stack.Screen
         options={({ route, navigation }) => ({
@@ -113,11 +115,11 @@ const MyEventsNavigator = () => {
         component={MyEventsScreen}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-const AssetsNavigator = () => {
-  return(
+const PropertiesNavigator = () => {
+  return (
     <Stack.Navigator>
       <Stack.Screen
         options={({ route, navigation }) => ({
@@ -129,13 +131,27 @@ const AssetsNavigator = () => {
               <Icon name="menu" />
             </Button>
           ),
+          headerRight: () => (
+            <Button onPress={() => navigation.navigate('MyProperties')} dark transparent>
+              <Icon name="md-cube" />
+            </Button>
+          )
         })}
-        name="Profile"
+        name="Properties"
         component={PropertiesScreen}
       />
+      <Stack.Screen
+        options={({ route, navigation }) => ({
+          title: "اموال من",
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+        })}
+        name="MyProperties"
+        component={MyPropertiesScreen}
+      />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const Drawer = createDrawerNavigator();
 
@@ -170,8 +186,8 @@ const MainNavigator = () => {
         options={{
           title: "اموال",
         }}
-        name="Properties" 
-        component={AssetsNavigator}
+        name="Properties"
+        component={PropertiesNavigator}
       />
       <Drawer.Screen
         options={{

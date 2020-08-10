@@ -5,9 +5,6 @@ import { Container, Text } from "native-base";
 import ItemCard from "./ItemCard";
 
 const ItemsList = (props) => {
-
-  
-
   return (
     <Container style={{ backgroundColor: "transparent" }}>
       <FlatList
@@ -19,6 +16,7 @@ const ItemsList = (props) => {
             title={item.title}
             price={item.price}
             image_url={item.image_url}
+            toggleModal={props.toggleModal}
           />
         )}
         keyExtractor={(item) => item.id}

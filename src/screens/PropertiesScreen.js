@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { Container, Text } from "native-base";
+import { Container, Text, View, Button } from "native-base";
 import ItemsList from "../components/assets/ItemsList";
 import { ImageBackground, StyleSheet } from "react-native";
+import Modal from "react-native-modal";
 
 export default class PropertiesScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedCategory : ""
-    }
+      selectedCategory: "",
+      isModalVisible : false
+    };
     this.DATA = [
       {
         id: "1",
@@ -36,10 +38,25 @@ export default class PropertiesScreen extends Component {
         price: "30000",
       },
     ];
-    this.DATA_DICT = {}
-
   }
-  
+
+  toggleModal = () => {
+    this.setState({isModalVisible : !this.state.isModalVisible})
+  }
+
+  renderModal = () => {
+    return (
+      <View style={styles.modal}>
+        <Text style={styles.modalText}>
+          رزرو با موفقیت انجام شد. با رفتن به صفحه ی اموال من از طریق دکمه ی
+        بالا و سمت راست صفحه، می توانید وضعیت درخواست های خود را ببینید
+        </Text>
+        <Button info style={styles.modalButton} onPress={this.toggleModal}>
+          <Text style={styles.modalButtonText}>باشه</Text>
+        </Button>
+      </View>
+    );
+  };
 
   render() {
     return (
@@ -48,8 +65,8 @@ export default class PropertiesScreen extends Component {
           source={require("../../assets/img/backgrounds/home.png")}
           style={styles.backgroundImageStyle}
         >
-          <Button />
-          <ItemsList data={this.DATA}/>
+          <Modal isVisible={this.state.isModalVisible} onBackdropPress={this.toggleModal}>{this.renderModal()}</Modal>
+          <ItemsList toggleModal={this.toggleModal} data={this.DATA} />
         </ImageBackground>
       </Container>
     );
@@ -64,5 +81,30 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "center",
+  },
+  modal: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+  },
+
+  modalText: {
+    fontFamily: "IRANSans",
+    fontSize: 16,
+    alignSelf: "center",
+    textAlign: "center",
+  },
+
+  modalButton: {
+    width: "40%",
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+
+  modalButtonText: {
+    fontSize: 16,
+    fontFamily: "IRANSans_bold",
   },
 });

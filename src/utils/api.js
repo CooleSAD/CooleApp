@@ -6,3 +6,4 @@ export const EVENTS_API = BASE_ADDRESS + "/events/"
 export const MYEVENTS_API = BASE_ADDRESS + "/events/me/"
 export const PROFILE_API = BASE_ADDRESS + "/users/me/"
 export const EVENT_API = (id) => BASE_ADDRESS + `/events/${id}/`
+export const MYPROPERTIES_API = BASE_ADDRESS + "/properties/me/"
