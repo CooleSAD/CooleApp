@@ -3,46 +3,20 @@ import { Container, Text, View, Button, Picker, Icon } from "native-base";
 import ItemsList from "../components/assets/ItemsList";
 import { ImageBackground, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
+import { connect } from "react-redux";
 
-export default class PropertiesScreen extends Component {
+import { requestProperties } from "../utils/requests/properties";
+
+class PropertiesScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedCategory: "",
+      selectedCategory: "همه",
       isModalVisible: false,
+      data: [],
     };
-    this.DATA = [
-      {
-        id: "1",
-        title: "کوله",
-        type: "کوله",
-        image_url: "../../../assets/img/samples/bag1.jpg",
-        price: "18000",
-      },
-      {
-        id: "2",
-        title: "کوله",
-        type: "کوله",
-        image_url: "../../../assets/img/samples/bag2.jpg",
-        price: "10000",
-      },
-      {
-        id: "3",
-        title: "کوله",
-        type: "کوله",
-        image_url: "../../../assets/img/samples/bag.jpg",
-        price: "25000",
-      },
-      {
-        id: "4",
-        title: "کوله",
-        type: "کوله",
-        image_url: "../../../assets/img/samples/stick.jpg",
-        price: "30000",
-      },
-    ];
-    this.DATA_DICT = { همه: this.DATA };
+    this.data_dict = {};
   }
 
   toggleModal = () => {
@@ -63,21 +37,45 @@ export default class PropertiesScreen extends Component {
     );
   };
 
-  onValueChange(value) {
+  onValueChange = (value) => {
     this.setState({
       selectedCategory: value,
     });
+  };
+
+  formDictData = (data) => {
+    this.data_dict["همه"] = [...data];
+    data.forEach((element) => {
+      if (element.kind in this.data_dict) {
+        this.data_dict[element.kind].push(element);
+      } else {
+        this.data_dict[element.kind] = [];
+        this.data_dict[element.kind].push(element);
+      }
+    });
+  };
+
+  componentDidMount() {
+    requestProperties(this.props.token)
+      .then((res) => {
+        this.formDictData(res.data);
+        this.setState({ data: res.data });
+      })
+      .catch((err) => console.warn(err));
   }
 
-  onMountData() {
-    for (var d in this.DATA) {
-      if (d.type in this.DATA_DICT) {
-        this.DATA_DICT[d.type].push(d);
-      } else {
-        this.DATA_DICT[d.type] = [d];
-      }
+  getLabelText = (key) => {
+    switch (key) {
+      case "Backpack":
+        return "کوله";
+      case "SleepBag":
+        return "کیسه خواب";
+      case "Jacket":
+        return "کاپشن";
+      default:
+        return "همه";
     }
-  }
+  };
 
   render() {
     return (
@@ -95,22 +93,23 @@ export default class PropertiesScreen extends Component {
           <View style={styles.picker}>
             <Picker
               mode="dropdown"
-              placeholder="Select your SIM"
               iosIcon={<Icon name="arrow-down" />}
-              placeholder="Select your SIM"
-              textStyle={{ color: "#5cb85c" }}
+              textStyle={{ color: "#5cb85c", fontFamily: "IRANSans" }}
               itemStyle={{
                 backgroundColor: "#d3d3d3",
                 marginLeft: 0,
                 paddingLeft: 10,
               }}
-              itemTextStyle={{ color: "#788ad2" }}
-              style={{ width: undefined }}
+              itemTextStyle={{ color: "#788ad2", fontFamily: "IRANSans" }}
+              style={{ fontFamily: "IRANSans" }}
               selectedValue={this.state.selectedCategory}
-              onValueChange={this.onValueChange.bind(this)}
+              onValueChange={this.onValueChange}
+              placeholderStyle={{ fontFamily: "IRANSans" }}
             >
-              {Object.keys(this.DATA_DICT).map((key) => {
-                return <Picker.Item label={key} value={key} />;
+              {Object.keys(this.data_dict).map((key) => {
+                return (
+                  <Picker.Item label={this.getLabelText(key)} value={key} />
+                );
               })}
             </Picker>
           </View>
@@ -118,7 +117,8 @@ export default class PropertiesScreen extends Component {
           <View style={styles.itemslist}>
             <ItemsList
               toggleModal={this.toggleModal}
-              data={this.DATA_DICT[this.state.selectedCategory]}
+              token={this.props.token}
+              data={this.data_dict[this.state.selectedCategory]}
             />
           </View>
         </ImageBackground>
@@ -178,3 +178,9 @@ const styles = StyleSheet.create({
     flex: 15,
   },
 });
+
+const mapStateToProps = (state) => ({
+  token: state.loginReducer.token,
+});
+
+export default connect(mapStateToProps, null)(PropertiesScreen);

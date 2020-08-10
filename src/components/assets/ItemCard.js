@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Image, StyleSheet } from "react-native";
 import {
   Card,
@@ -12,14 +12,34 @@ import {
 } from "native-base";
 import PersianJS from "persianjs";
 
-const ItemCard = ({ title, image_url, price, toggleModal }) => {
+import { requestReserveProperty } from '../../utils/requests/properties';
+
+function ItemCard({ name, image_url, price, toggleModal, state, token, id }) {
+  const [reserved, setReserved] = useState(state)
+
+
+  function getButtonText(state) {
+    if(state == 'F')
+      return 'رزرو'
+    return 'رزرو شده'
+  }
+
+  function onPressButton() {
+    requestReserveProperty(token, id)
+    .then((res) => {
+      toggleModal()
+      setReserved('R')
+    })
+    .catch((err) => console.warn(err))
+  }
+
   return (
     <Content style={{ marginVertical: 1, alignSelf: "center" }}>
-      <Card style={{ borderRadius: 25, backgroundColor: "#f6f6f6" }}>
+      <Card style={{ borderRadius: 25, backgroundColor: "#f6f6f6", width:'99%' }}>
         <CardItem bordered cardBody style={styles.ImageCardItem}>
           <Image
             resizeMode={"cover"}
-            source={require("../../../assets/img/samples/bag2.jpg")}
+            source={{uri : image_url}}
             style={styles.Image} //replace bg color with image
           />
         </CardItem>
@@ -37,18 +57,19 @@ const ItemCard = ({ title, image_url, price, toggleModal }) => {
           </Left>
           <Right>
             <Text style={{ fontFamily: "IRANSans_bold", fontSize: 16 }}>
-              {title}
+              {name}
             </Text>
           </Right>
         </CardItem>
         <CardItem bordered style={styles.TextCardItem}>
           <Button
-            style={{ width: "50%", justifyContent: "center", borderRadius: 20 }}
+            style={{ width: "70%", justifyContent: "center", borderRadius: 20 }}
             info
-            onPress={toggleModal}
+            onPress={onPressButton}
+            disabled={reserved == 'R'}
           >
             <Text style={{ fontFamily: "IRANSans_bold", fontSize: 14 }}>
-              رزرو
+              {getButtonText(reserved)}
             </Text>
           </Button>
         </CardItem>
@@ -65,7 +86,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     height: 200,
-    width: null,
+    
   },
 
   TextCardItem: {
@@ -76,7 +97,6 @@ const styles = StyleSheet.create({
 
   Image: {
     height: "100%",
-    width: undefined,
     flex: 1,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
