@@ -14,6 +14,7 @@ import EditProfileScreen from "./src/screens/EditProfileScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
 import PropertiesScreen from "./src/screens/PropertiesScreen";
 import MyPropertiesScreen from "./src/screens/MyPropertiesScreen";
+import NeedsBoard from "./src/screens/NeedsBoard";
 
 import CustomDrawer from "./src/components/global/customDrawer";
 
@@ -153,6 +154,27 @@ const PropertiesNavigator = () => {
   );
 };
 
+const NeedsBoardNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={({ route, navigation }) => ({
+          title: "نیازمندی ها",
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Button onPress={() => navigation.toggleDrawer()} dark transparent>
+              <Icon name="menu" />
+            </Button>
+          ),
+        })}
+        name="NeedsBoard"
+        component={NeedsBoard}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const Drawer = createDrawerNavigator();
 
 const MainNavigator = () => {
@@ -194,7 +216,7 @@ const MainNavigator = () => {
           title: "نیازمندی ها",
         }}
         name="Needs"
-        component={HomeScreen}
+        component={NeedsBoardNavigator}
       />
     </Drawer.Navigator>
   );
