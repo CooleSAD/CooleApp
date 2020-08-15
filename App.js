@@ -9,7 +9,6 @@ import { Provider } from "react-redux";
 
 import AppNavigator from "./AppNavigator";
 import cooleApp from "./src/redux/reducers/index";
-import HomeScreen from './src/screens/HomeScreen';
 
 const store = createStore(cooleApp);
 
