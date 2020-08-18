@@ -113,7 +113,11 @@ class EventScreen extends Component {
   };
 
   toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    const {id} = this.props.route.params
+    if (!this.state.hasEnrolled)
+      this.setState({ isModalVisible: !this.state.isModalVisible });
+    else 
+      this.props.navigation.navigate('InEvent', {id})
   };
 
   renderModal = () => {
@@ -170,7 +174,6 @@ class EventScreen extends Component {
                   style={styles.EnrollButton}
                   info
                   //todo
-                  disabled={this.state.hasEnrolled}
                 >
                   <Text style={styles.EnrollButtonText}>
                     {this.getButtonText()}

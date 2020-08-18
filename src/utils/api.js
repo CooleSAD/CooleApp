@@ -11,3 +11,6 @@ export const PROPERTIES_API = BASE_ADDRESS + "/properties/"
 export const PROPERTY_API = (id) => BASE_ADDRESS + `/properties/${id}/`
 export const NEEDS_API = BASE_ADDRESS + "/needs/"
 export const NEED_API = (id) => BASE_ADDRESS + `/needs/${id}`
+export const MY_EVENT_COSTS_API = (id) => BASE_ADDRESS + `/events/${id}/costs/me/`
+export const EVENT_COSTS_API = (id) => BASE_ADDRESS + `/events/${id}/costs/`
+export const EVENT_COST_API = (id) => BASE_ADDRESS + `/events/costs/${id}/`

@@ -15,6 +15,7 @@ import MyEventsScreen from "./src/screens/MyEventsScreen";
 import PropertiesScreen from "./src/screens/PropertiesScreen";
 import MyPropertiesScreen from "./src/screens/MyPropertiesScreen";
 import NeedsBoard from "./src/screens/NeedsBoard";
+import InEventScreen from "./src/screens/InEventScreen"
 
 import CustomDrawer from "./src/components/global/customDrawer";
 
@@ -54,6 +55,15 @@ const HomeNavigator = ({ navigatedEventTitle }) => {
         }}
         name="Event"
         component={EventScreen}
+      />
+      <Stack.Screen
+        options={{
+          title: navigatedEventTitle,
+          headerTitleStyle: { fontFamily: "IRANSans_bold" },
+          headerTitleAlign: "center",
+        }}
+        name="InEvent"
+        component={InEventScreen}
       />
     </Stack.Navigator>
   );

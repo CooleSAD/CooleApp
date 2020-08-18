@@ -13,7 +13,8 @@ export default class TextInput extends Component {
       color,
       labelSize,
       labelFont,
-      value
+      value,
+      keyboardType
     } = this.props;
 
     return (
@@ -32,6 +33,7 @@ export default class TextInput extends Component {
           onChangeText={(value) => onChangeText(value, type)}
           secureTextEntry={password ? true : false}
           style={{ fontFamily: "IRANSans", marginTop: 5 }}
+          keyboardType={keyboardType ? keyboardType : undefined}
         />
       </Item>
     );
