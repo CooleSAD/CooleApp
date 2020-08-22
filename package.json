@@ -19,6 +19,8 @@
     "expo-constants": "~9.0.0",
     "expo-font": "~8.1.0",
     "expo-linear-gradient": "^8.1.0",
+    "expo-notifications": "~0.1.1",
+    "expo-permissions": "~8.1.0",
     "global": "^4.4.0",
     "jalali-moment": "^3.3.8",
     "native-base": "2.13.8",
